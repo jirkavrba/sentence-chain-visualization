@@ -12,7 +12,7 @@ export const RemotionVideo: React.FC = () => {
 			setMessages(Array.from(messages));
 			continueRender(handle);
 		})
-	}, []);
+	}, [handle]);
 
 	return (
 		<>
