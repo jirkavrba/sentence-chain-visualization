@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {AbsoluteFill, Sequence} from "remotion";
+import {AbsoluteFill, Sequence, Series} from "remotion";
 import Message from "./SentenceChain/Message";
 
 export interface MessageSource {
@@ -26,11 +26,13 @@ const SentenceChain: React.FC<SentenceChainProps> = ({messages}: SentenceChainPr
 
   return <>
     <AbsoluteFill style={{backgroundColor: "#ffffff"}}>
+      <Series>
       {messages.map((message, i) => 
-        <Sequence from={i * 30} durationInFrames={30}>
-          <Message key={i} source={message} index={i}/>
-        </Sequence>
+        <Series.Sequence durationInFrames={message.content.length * 2}>
+          <Message key={i} source={message} index={i} duration={message.content.length * 2}/>
+        </Series.Sequence>
       )}
+      </Series>
       <Footer>Rendered on {new Date().getDate()}. {new Date().getMonth()}. {new Date().getFullYear()}</Footer>
     </AbsoluteFill>
   </>

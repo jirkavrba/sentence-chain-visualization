@@ -5,10 +5,11 @@ import { MessageSource } from "../SentenceChain"
 
 export interface MessageProps {
   source: MessageSource,
-  index: number
+  index: number,
+  duration: number,
 }
 
-const Message: React.FC<MessageProps> = ({ source: { username, avatar, content }, index }: MessageProps) => {
+const Message: React.FC<MessageProps> = ({ source: { username, avatar, content }, index, duration }: MessageProps) => {
 
   const Container = styled.div`
     display: flex;
@@ -55,7 +56,6 @@ const Message: React.FC<MessageProps> = ({ source: { username, avatar, content }
   const start = colors[index % colors.length];
   const end = colors[(index + 1) % colors.length];
   const words = content.trim()
-    .replace(/<(a:)?:.*:\d+>/, "")
     .split(/(\s+)/);
 
   const renderWord = (word: string, index: number, total: number) => {
@@ -72,8 +72,8 @@ const Message: React.FC<MessageProps> = ({ source: { username, avatar, content }
 
   const frame = useCurrentFrame();
 
-  const opacity = interpolate(frame, [0, 5, 25, 30], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.ease });
-  const transition = interpolate(frame, [0, 5, 25, 30], [-1, 0, 0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.ease });
+  const opacity = interpolate(frame, [0, 5, Math.max(duration - 5, 6), Math.max(duration, 7)], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.ease });
+  const transition = interpolate(frame, [0, 5, Math.max(duration - 5, 6), Math.max(duration, 7)], [-1, 0, 0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.ease });
 
   return (
     <AbsoluteFill>
