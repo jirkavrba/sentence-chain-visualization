@@ -17,7 +17,7 @@ const Message: React.FC<MessageProps> = ({ source: { username, avatar, content }
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    padding: 30px;
+    padding: 10px;
   `;
 
   const Header = styled.div`
@@ -30,15 +30,15 @@ const Message: React.FC<MessageProps> = ({ source: { username, avatar, content }
   const Username = styled.h1`
     color: #000000;
     font-family: 'Arial', sans-serif;
-    font-size: 50px;
-    margin-left: 30px;
+    font-size: 30px;
+    margin-left: 20px;
   `;
 
   const Content = styled.p`
     color: #555555;
     font-family: 'Arial', sans-serif;
     font-weight: bold;
-    font-size: 60px;
+    font-size: 30px;
     max-width: 80%;
     text-align: center;
   `;
@@ -79,7 +79,7 @@ const Message: React.FC<MessageProps> = ({ source: { username, avatar, content }
     <AbsoluteFill>
       <Container>
         <Header style={{ opacity, transform: `translate(${transition * 30}px)` }}>
-          <Img src={avatar} style={{ width: 100, height: 100, borderRadius: "50%" }} />
+          <Img src={avatar} style={{ width: 50, height: 50, borderRadius: "50%" }} />
           <Username>{username}</Username>
         </Header>
         <Content style={{ opacity, transform: `translateY(${transition * 10}px)` }}>

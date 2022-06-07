@@ -13,7 +13,7 @@ export const RemotionVideo: React.FC = () => {
 			const converted = Array.from(messages)
 				.map(message => ({...message, content: message.content.replace(/<(a:)?:.*:\d+>/, "") }))
 				.filter(message => message.content.trim().length !== 0)
-				.slice(0, 100);
+				// .slice(0, 50);
 				
 			const duration = converted.reduce((sum, message) => sum + message.content.length, 0);
 
@@ -30,8 +30,8 @@ export const RemotionVideo: React.FC = () => {
 				component={SentenceChain}
 				durationInFrames={duration}
 				fps={30}
-				width={1920}
-				height={1080}
+				width={640}
+				height={480}
 				defaultProps={{ messages: messages ?? [] }}
 			/>
 		</>

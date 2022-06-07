@@ -1,6 +1,8 @@
-import styled from "styled-components";
-import {AbsoluteFill, Sequence, Series} from "remotion";
+import { Audio, Loop} from 'remotion'
+import { AbsoluteFill, Series } from "remotion";
 import Message from "./SentenceChain/Message";
+import Intro from "./SentenceChain/Intro";
+import music from "./assets/warm-breeze-extended-version.mp3";
 
 export interface MessageSource {
   username: string,
@@ -12,28 +14,22 @@ export interface SentenceChainProps {
   messages: Array<MessageSource>
 }
 
-const SentenceChain: React.FC<SentenceChainProps> = ({messages}: SentenceChainProps) => {
-
-  const Footer = styled.footer`
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-    text-align: center;
-    color: #aaaaaa;
-    font-family: monospace;
-    font-size: 20px;
-  `;
-
+const SentenceChain: React.FC<SentenceChainProps> = ({ messages }: SentenceChainProps) => {
   return <>
-    <AbsoluteFill style={{backgroundColor: "#ffffff"}}>
+    <AbsoluteFill style={{ backgroundColor: "#ffffff" }}>
+      <Loop durationInFrames={3360}>
+        <Audio src={music} />
+      </Loop>
       <Series>
-      {messages.map((message, i) => 
-        <Series.Sequence durationInFrames={message.content.length * 2}>
-          <Message key={i} source={message} index={i} duration={message.content.length * 2}/>
+        <Series.Sequence durationInFrames={250}>
+          <Intro />
         </Series.Sequence>
-      )}
+        {messages.map((message, i) =>
+          <Series.Sequence key={i} durationInFrames={10 + Math.floor(message.content.length * 2)}>
+            <Message source={message} index={i} duration={10 + Math.floor(message.content.length * 2)} />
+          </Series.Sequence>
+        )}
       </Series>
-      <Footer>Rendered on {new Date().getDate()}. {new Date().getMonth()}. {new Date().getFullYear()}</Footer>
     </AbsoluteFill>
   </>
 }
