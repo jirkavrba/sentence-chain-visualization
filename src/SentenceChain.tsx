@@ -1,3 +1,4 @@
+import {AbsoluteFill, Sequence} from 'remotion'
 import Message from "./SentenceChain/Message"
 
 export interface MessageSource {
@@ -12,9 +13,13 @@ export interface SentenceChainProps {
 
 const SentenceChain: React.FC<SentenceChainProps> = ({messages}: SentenceChainProps) => {
   return <>
-    <div>
-      {messages.map((message, i) => <Message key={i} source={message}/>)}
-    </div>
+    <AbsoluteFill style={{backgroundColor: "#ffffff"}}>
+      {messages.map((message, i) => 
+        <Sequence from={i * 30} durationInFrames={30}>
+          <Message key={i} source={message} index={i}/>
+        </Sequence>
+      )}
+    </AbsoluteFill>
   </>
 }
 
